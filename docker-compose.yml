@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  feature-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+    networks:
+      - feature-network
+    restart: unless-stopped
+
+  feature-ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - NODE_ENV=development
+    depends_on:
+      - feature-api
+    networks:
+      - feature-network
+    restart: unless-stopped
+
+networks:
+  feature-network:
+    driver: bridge
