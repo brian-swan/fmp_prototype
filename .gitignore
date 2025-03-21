@@ -1,1 +1,4 @@
 /ui/node_modules/
+/ui/build/
+/fmp_api/__pycache__
+/fmp_api/tests/__pycache__
